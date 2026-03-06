@@ -2,6 +2,7 @@ import React from 'react';
 import Banner from '../Banner/Banner';
 import Category from '../Category/Category';
 import ClientLogosMarquee from '../ClientLogosMarquee/ClientLogosMarquee';
+import PostJob from '../PostJob/PostJob';
 
 const Home = () => {
     return (
@@ -9,6 +10,7 @@ const Home = () => {
             <Banner></Banner>
             <ClientLogosMarquee></ClientLogosMarquee>
             <Category></Category>
+            <PostJob></PostJob>
         </div>
     );
 };
