@@ -4,6 +4,7 @@ import Category from '../Category/Category';
 import ClientLogosMarquee from '../ClientLogosMarquee/ClientLogosMarquee';
 import PostJob from '../PostJob/PostJob';
 import FeaturedJobs from '../FeaturedJobs/FeaturedJobs';
+import LatestJobs from '../LatestJobs/LatestJobs';
 
 const Home = () => {
     return (
@@ -13,6 +14,7 @@ const Home = () => {
             <Category></Category>
             <PostJob></PostJob>
             <FeaturedJobs></FeaturedJobs>
+            <LatestJobs></LatestJobs>
         </div>
     );
 };
