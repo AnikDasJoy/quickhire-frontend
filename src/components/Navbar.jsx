@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import QuickHire from "../pages/shared/QuickHire/QuickHire";
 
 const Navbar = () => {
 
@@ -19,18 +20,27 @@ const Navbar = () => {
     <nav className="bg-white shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
 
-        <Link to="/" className="text-2xl font-bold text-blue-600">
+        {/* <Link to="/" className="text-2xl font-bold text-blue-600">
+          QuickHire
+        </Link> */}
+
+        {/* Logo */}
+                <div className='flex items-end gap-2'>
+                  <QuickHire />
+                  <Link to="/" className="text-2xl font-bold text-blue-600">
           QuickHire
         </Link>
+                </div>
+        
 
         <div className="flex gap-4">
 
-          <Link
+          {/* <Link
             to="/admin"
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
           >
-            Admin
-          </Link>
+            Logged In
+          </Link> */}
 
           <button
             onClick={handleLogout}

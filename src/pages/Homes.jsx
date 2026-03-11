@@ -4,9 +4,9 @@ import JobCard from "../components/JobCard";
 import SearchBar from "../components/SearchBar";
 import FilterBar from "../components/FilterBar";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Footer from "../../src/pages/shared/Footer/Footer";
 
-const Home = () => {
+const Homes = () => {
   const [jobs, setJobs] = useState([]);
   const [search, setSearch] = useState("");
   const [location, setLocation] = useState("");
@@ -50,4 +50,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Homes;

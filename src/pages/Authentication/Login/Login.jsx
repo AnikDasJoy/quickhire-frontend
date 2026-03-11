@@ -14,34 +14,29 @@ const Login = () => {
   const from = location.state?.from || "/";
 
   const onSubmit = async (data) => {
-    try {
+  try {
 
-      // Firebase Login
-      const result = await signIn(data.email, data.password);
-      const user = result.user;
+    const result = await signIn(data.email, data.password);
+    const user = result.user;
 
-      console.log("Logged in user:", user.email);
+    // get role from backend
+    const res = await axios.get(
+      `http://localhost:5000/api/users/${user.email}`
+    );
 
-      // Get user role from database
-      const res = await axios.get(
-        `http://localhost:5000/api/users/${user.email}`
-      );
+    const role = res.data.role;
 
-      const role = res.data.role;
-
-      console.log("User role:", role);
-
-      // Redirect based on role
-      if (role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate(from);
-      }
-
-    } catch (error) {
-      console.error("Login error:", error);
+    if (role === "admin") {
+      navigate("/admin");
+    } 
+    else {
+      navigate("/user");   // 👈 redirect user here
     }
-  };
+
+  } catch (error) {
+    console.error(error);
+  }
+};
 
   return (
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">

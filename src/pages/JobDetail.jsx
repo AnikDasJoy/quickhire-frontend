@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import API from "../services/api";
 import ApplyForm from "../components/ApplyForm";
+import Footer from "../../src/pages/shared/Footer/Footer";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 const JobDetail = () => {
   const { id } = useParams();

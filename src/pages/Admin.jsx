@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../services/api";
 import Navbar from "../components/Navbar";
+import Footer from "./shared/Footer/Footer";
 
 const Admin = () => {
   const [jobs, setJobs] = useState([]);
@@ -74,6 +75,7 @@ const Admin = () => {
           ))}
         </div>
       </div>
+      <Footer />
     </>
   );
 };
