@@ -6,6 +6,8 @@ import Home from "../pages/Home/Home/Home";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Authentication/Login/Login";
 import Register from "../pages/Authentication/Register/Register";
+import Admin from "../pages/Admin";
+import PrivateRoute from "../routes/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -32,4 +34,13 @@ export const router = createBrowserRouter([
       },
     ],
   },
+
+  {
+  path: "/admin",
+  element: (
+    <PrivateRoute>
+      <Admin />
+    </PrivateRoute>
+  ),
+}
 ]);

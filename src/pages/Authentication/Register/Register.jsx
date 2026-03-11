@@ -1,140 +1,123 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import useAuth from '../../../hooks/useAuth';
-import { Link, useLocation, useNavigate } from 'react-router';
-import axios from 'axios';
-import useAxios from '../../../hooks/useAxios';
-
+import React from "react";
+import { useForm } from "react-hook-form";
+import useAuth from "../../../hooks/useAuth";
+import { Link, useLocation, useNavigate } from "react-router";
+import axios from "axios";
 
 const Register = () => {
-    const{register, handleSubmit, formState: { errors }}= useForm();
-    // const {createUser, updateUserProfile}=useAuth();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-    const {createUser}=useAuth();
+  const { createUser } = useAuth();
 
-    // const[profilePic, setProfilePic]= useState();
-    // const axiosInstance= useAxios();
-    const location = useLocation();
-    const navigate = useNavigate();
-    // const from = location.state?.from || "/";
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    // const onSubmit = (data) => {
-    //     console.log(data);
-    //     createUser(data.email, data.password)
-    //     .then(async(result)=>{
-    //         console.log(result.user);
+  const from = location.state?.from || "/";
 
-    //         // update userinfo in the database
-    //         const userInfo={
-    //             email: data.email,
-    //             role: 'user',
-    //             created_at: new Date().toISOString(),
-    //             last_log_in: new Date().toISOString()
-    //         }
+  const onsubmit = async (data) => {
+    console.log(data);
 
-    //         const userRes= await axiosInstance.post('/users', userInfo);
-    //         console.log(userRes.data);
+    try {
+      // 1️⃣ Create user in Firebase
+      const result = await createUser(data.email, data.password);
+      console.log("Firebase User:", result.user);
 
-    //         //update userProfile in the firebase
-    //         const profileInfo={
-    //             displayName: data.name,
-    //             photoURL: profilePic
-    //         }
-    //         updateUserProfile(profileInfo)
-    //         .then(()=>{
-    //             console.log('profile name pic updated');
-    //             navigate(from);
-    //         })
-    //         .catch(error=>{
-    //             console.error(error);
-    //         })
-    //     })
-    //     .catch(error=>{
-    //         console.error(error);
-    //     })
-    // }
+      // 2️⃣ Save user to MongoDB
+      const userInfo = {
+        name: data.name,
+        email: data.email,
+      };
 
-    const onsubmit = (data) => {
-        console.log(data);
-            createUser(data.email, data.password)
-        .then(async(result)=>{
-            console.log(result.user);
-        })
-        .catch(error=>{
-            console.error(error);
-        })
+      await axios.post("http://localhost:5000/api/users", userInfo);
 
+      console.log("User saved in MongoDB");
+
+      // 3️⃣ Redirect after registration
+      navigate(from);
+
+    } catch (error) {
+      console.error("Registration error:", error);
     }
+  };
 
-    // const handleImageUpload = async(e)=>{
-    //     const image =e.target.files[0];
-    //     console.log(image);
-
-    //     const formData = new FormData();
-    //     formData.append("image", image);
-
-    //     const imageUploadUrl= `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_UPLOAD_KEY}`
-    //     const res = await axios.post(imageUploadUrl, formData); 
-
-    //     setProfilePic(res.data.data.url);
-    // }
-    return (
- 
+  return (
     <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
       <div className="card-body">
-      <h1 className="text-5xl font-bold">Create Account!</h1>
+        <h1 className="text-5xl font-bold">Create Account!</h1>
+
         <form onSubmit={handleSubmit(onsubmit)}>
-            <fieldset className="fieldset">
-          
-          {/* Name Input */}
-          <label className="label">Your Name</label>
-          <input type="text" {...register("name", {required: true}) } className="input" placeholder="Your Name" />
+          <fieldset className="fieldset">
 
-          {
-            errors.email?.type === "required" && (
-                <p className="text-red-600">Name is required</p>
-            )
-          }
+            {/* Name */}
+            <label className="label">Your Name</label>
+            <input
+              type="text"
+              {...register("name", { required: true })}
+              className="input"
+              placeholder="Your Name"
+            />
 
-          {/* Name Input */}
-          {/* <label className="label">Name</label>
-          <input type="file" onChange={handleImageUpload}  className="input" placeholder="Your profile picture" /> */}
+            {errors.name?.type === "required" && (
+              <p className="text-red-600">Name is required</p>
+            )}
 
-          {/* Email Input */}
-          <label className="label">Email</label>
-          <input type="email" {...register("email", {required: true}) } className="input" placeholder="Email" />
+            {/* Email */}
+            <label className="label">Email</label>
+            <input
+              type="email"
+              {...register("email", { required: true })}
+              className="input"
+              placeholder="Email"
+            />
 
-          {
-            errors.email?.type === "required" && (
-                <p className="text-red-600">Email is required</p>
-            )
-          }
+            {errors.email?.type === "required" && (
+              <p className="text-red-600">Email is required</p>
+            )}
 
-          {/* Password Input */}
-          <label className="label">Password</label>
-          <input type="password" {...register("password", { required: true, minLength: 6 })} className="input" placeholder="Password" />
+            {/* Password */}
+            <label className="label">Password</label>
+            <input
+              type="password"
+              {...register("password", { required: true, minLength: 6 })}
+              className="input"
+              placeholder="Password"
+            />
 
-          {
-            errors.password?.type === "required" && (
-                <p className="text-red-600">Password is required</p>
-            )
-          }
-          {
-            errors.password?.type === "minLength" && (
-                <p className="text-red-600">Password must be at least 6 characters or longer</p>
-            )
-          }
+            {errors.password?.type === "required" && (
+              <p className="text-red-600">Password is required</p>
+            )}
 
-          <div><a className="link link-hover">Forgot password?</a></div>
-          <button className="btn btn-primary text-black mt-4">Register</button>
-        </fieldset>
-        <p><small>Already Have an Account? <Link className='btn btn-link' to="/login">Login</Link></small></p>
+            {errors.password?.type === "minLength" && (
+              <p className="text-red-600">
+                Password must be at least 6 characters
+              </p>
+            )}
+
+            <div>
+              <a className="link link-hover">Forgot password?</a>
+            </div>
+
+            <button className="btn btn-success text-black mt-4">
+              Register
+            </button>
+          </fieldset>
+
+          <p>
+            <small>
+              Already Have an Account?{" "}
+              <Link className="btn btn-link" to="/login">
+                Login
+              </Link>
+            </small>
+          </p>
         </form>
-        {/* <SocialLogin></SocialLogin> */}
       </div>
     </div>
-
-    );
+  );
 };
 
 export default Register;
