@@ -10,6 +10,7 @@ import Admin from "../pages/Admin";
 import PrivateRoute from "../routes/PrivateRoute";
 import JobDetail from "../pages/JobDetail";
 import Homes from "../pages/Homes";
+import Signup from "../pages/Authentication/Signup/Signup";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: "register",
         Component: Register
+      },
+      {
+        path: "signup",
+        Component: Signup
       }
     ]
   },

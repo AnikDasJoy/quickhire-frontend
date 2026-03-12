@@ -20,26 +20,23 @@ const Banner = () => {
               </p>
     
               {/* Search Box */}
-              <div className="mt-8 flex bg-white shadow-md p-2 rounded-md w-full max-w-md">
-    
-                <input
-                  type="text"
-                  placeholder="Job title or keyword"
-                  className="flex-1 outline-none px-3"
-                />
-    
-                <input
-                  type="text"
-                  placeholder="Location"
-                  className="flex-1 outline-none px-3 border-l"
-                />
-    
-                <button className="bg-indigo-600 text-white px-6 py-2 rounded-md">
-                  Search my job
-                </button>
-    
-              </div>
-    
+              <div className="mt-8 bg-white shadow-md p-2 rounded-md w-full max-w-md mx-auto flex flex-col sm:flex-row gap-2">
+                    <input
+                        type="text"
+                        placeholder="Job title or keyword"
+                        className="flex-1 outline-none px-3 py-2 rounded-md border sm:rounded-r-none"
+                    />
+
+                    <input
+                        type="text"
+                        placeholder="Location"
+                        className="flex-1 outline-none px-3 py-2 rounded-md border sm:border-l-0 sm:rounded-l-none sm:rounded-r-md"
+                    />
+
+                    <button className="bg-indigo-600 text-white px-6 py-2 rounded-md sm:rounded-md">
+                        Search my job
+                    </button>
+                    </div>
               <p className="mt-4 text-sm text-gray-400">
                 Popular : UI Designer, UX Researcher, Android, Admin
               </p>
